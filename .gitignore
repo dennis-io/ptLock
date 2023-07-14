@@ -1,1 +1,9 @@
 venv/
+
+# pytest
+.pytest_cache/
+pytest.ini
+
+# Build artifacts
+build/
+*.egg-info/
