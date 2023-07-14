@@ -7,6 +7,16 @@ import sys
 import pyperclip
 import random
 
+import os
+
+def parse_config():
+    # Get the path to the config.ini file based on the location of ptlock.py
+    config_path = os.path.join(os.path.dirname(__file__), 'config.ini')
+
+    config = configparser.ConfigParser()
+    config.read(config_path)
+    return config
+
 def generate_password(length, include_uppercase=True, include_lowercase=True, include_digits=True, include_special_chars=True, exclude_chars=''):
     character_sets = []
     if include_uppercase:
