@@ -7,11 +7,10 @@ import sys
 import pyperclip
 import random
 
-import os
-
 def parse_config():
     # Get the path to the config.ini file based on the location of ptlock.py
-    config_path = os.path.join(os.path.dirname(__file__), 'config.ini')
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    config_path = os.path.join(current_dir, 'config.ini')
 
     config = configparser.ConfigParser()
     config.read(config_path)
@@ -47,13 +46,17 @@ def generate_password(length, include_uppercase=True, include_lowercase=True, in
     return password
 
 def parse_config():
+    # Get the path to the config.ini file based on the location of ptlock.py
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    config_path = os.path.join(current_dir, 'config.ini')
+
     config = configparser.ConfigParser()
-    config.read('config.ini')
+    config.read(config_path)
     return config
 
 def parse_arguments(config):
     parser = argparse.ArgumentParser(description='Generate a strong password.')
-    parser.add_argument('-l', '--length', type=int, default=config.getint('length', 'default'), help='The length of the password')
+    parser.add_argument('-l', '--length', type=int, default=config.getint('length', 'default', fallback=12), help='The length of the password')
     parser.add_argument('-u', '--uppercase', action='store_true', default=config.getboolean('sets', 'include_uppercase'), help='Include uppercase letters in the password')
     parser.add_argument('-lc', '--lowercase', action='store_true', default=config.getboolean('sets', 'include_lowercase'), help='Include lowercase letters in the password')
     parser.add_argument('-d', '--digits', action='store_true', default=config.getboolean('sets', 'include_digits'), help='Include digits in the password')
