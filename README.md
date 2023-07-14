@@ -1,7 +1,3 @@
-Absolutely, let's name the README accordingly and provide more detailed instructions for the ptLock project.
-
----
-
 # 💪💻 ptLock: Python Turbo Lock Password Generator 🎉🔒
 
 Welcome to ptLock! This robust Python tool generates secure, complex passwords for all your needs. Customize your passwords' length and composition, and even specify characters to exclude!
@@ -25,9 +21,7 @@ ptLock uses a configuration file (`config.ini`) for default settings. You can ch
 Here's a quick overview of the `config.ini` sections:
 
 - `[length]`: Define the default length of the password.
-
 - `[sets]`: Specify whether to include uppercase letters, lowercase letters, digits, and special characters.
-
 - `[exclusions]`: Exclude specific characters from the password.
 
 For example:
@@ -51,7 +45,7 @@ exclude_chars = {}
 You can run ptLock directly from the command line with various options:
 
 ```shell
-python ptlock.py -l 16 -u -lc -d -s -e "abcdef0123"
+ptlock -l 16 -u -lc -d -s -e "abcdef0123"
 ```
 
 The options are:
@@ -74,6 +68,20 @@ The options are:
 ### 😊 Contribution
 
 We welcome all contributions! If you find a bug 🐛 or want to propose a new feature, please open an issue on the GitHub repository.
+
+## 📦 Distribution and Installation
+
+### Using `pip` and `setup.py`
+
+To install ptLock using `pip`, follow these steps:
+
+1. Clone the ptLock repository with the following command: `git clone https://github.com/neutronsec/ptLock.git`
+2. Navigate to the ptLock directory: `cd ptLock/`
+3. Install ptLock and its dependencies by running: `pip install .`
+
+### 📄 License
+
+This project is licensed under the terms of the [LICENSE](LICENSE) file.
 
 ---
 
