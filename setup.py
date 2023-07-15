@@ -8,7 +8,8 @@ setup(
         'console_scripts': ['ptlock=ptLock.ptlock:main']
     },
     install_requires=[
-        'click'
+        'click',
+        'pyperclip'  # Add this line
     ],
     python_requires='>=3.6',
 )
