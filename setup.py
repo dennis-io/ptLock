@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='ptlock',
+    name='ptLock',
     version='1.0.0',
     description='Password generator with CLI support',
     author='neutron',
