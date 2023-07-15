@@ -1,5 +1,4 @@
-name: Continuous Integration
-
+name: Build and Test
 on:
   push:
     branches:
@@ -9,28 +8,24 @@ on:
     branches:
       - main
       - develop
-
 jobs:
-  build:
-
-    runs-on: ${{ matrix.os }}
-
+  build_linux:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
-        python-version: [3.6]
-
+        python-version: ['3.x', '3.9.x']
     steps:
+    - name: Check out code
+      uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
         pip install .
-
+        pip install pytest  # Install pytest
     - name: Run tests
-      run: pytest
-
+      run: |
+        export PYTHONPATH=$PYTHONPATH:$(pwd)
+        pytest

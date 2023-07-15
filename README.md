@@ -71,4 +71,4 @@ We welcome all contributions! If you find a bug 🐛 or want to propose a new fe
 
 ## 📄 License
 
-This project is licensed under the terms of the [LICENSE](LICENSE) file.
+The project is licensed under the terms of the [LICENSE](LICENSE) file.
