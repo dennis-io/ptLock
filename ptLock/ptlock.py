@@ -59,12 +59,26 @@ def main():
     config = parse_config()
     args = parse_arguments(config)
 
+    length = max(12, args.length)  # Ensure the minimum length is 12
     if args.length < 12:
-        print("❗️ Password length should be at least 12 characters.")
-        sys.exit(1)
+        print("⚠️ The password length you provided is less than 12.")
+        print("💡 For better security, the minimum password length has been set to 12.")
+
+    while length < 12:
+        proceed = input("Do you want to proceed with a shorter password? (y/n): ")
+        if proceed.lower() == 'y':
+            break
+        else:
+            while True:
+                new_length = input("Please enter a new password length: ")
+                if new_length.isdigit():
+                    length = int(new_length)
+                    break
+                else:
+                    print("❗️ Invalid input. Please enter a number.")
 
     try:
-        password = generate_password(args.length, 'u' in args.sets, 'l' in args.sets, 'd' in args.sets, 's' in args.sets, args.exclude)
+        password = generate_password(length, 'u' in args.sets, 'l' in args.sets, 'd' in args.sets, 's' in args.sets, args.exclude)
         print("🎉 Generated Password:", password)
         if args.copy:
             pyperclip.copy(password)
@@ -74,4 +88,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

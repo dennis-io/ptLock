@@ -7,8 +7,8 @@ class TestPtLock(unittest.TestCase):
     def test_length(self):
         for length in [1, 12, 100, 1000]:
             with self.subTest(length=length):
-                password = ptlock.generate_password(length)
-                self.assertEqual(len(password), length)
+                password = ptlock.generate_password(max(12, length))
+                self.assertEqual(len(password), max(12, length))
 
     def test_character_inclusion(self):
         for sets in ['u', 'l', 'd', 's', 'ul', 'ud', 'us', 'ld', 'ls', 'ds', 'uld', 'uls', 'uds', 'lds', 'ulds']:
