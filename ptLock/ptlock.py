@@ -49,10 +49,11 @@ def generate_password(length, include_uppercase=True, include_lowercase=True, in
 def parse_arguments(config):
     parser = argparse.ArgumentParser(description='Generate a strong password.')
     parser.add_argument('-l', '--length', type=int, default=config.getint('length', 'default', fallback=12), help='The length of the password')
-    parser.add_argument('-s', '--sets', type=str, default='ulds', help='Sets of characters to include in the password: u (uppercase), l (lowercase), d (digits), s (special characters)')
+    parser.add_argument('-s', '--sets', type=str, default=config.get('sets', 'include_sets', fallback='ulds'), help='Sets of characters to include in the password: u (uppercase), l (lowercase), d (digits), s (special characters)')
     parser.add_argument('-e', '--exclude', type=str, default=config.get('exclusions', 'exclude_chars'), help='Exclude specific characters from the password')
     parser.add_argument('-c', '--copy', action='store_true', help='Copy the password to clipboard')
     return parser.parse_args()
+
 
 def main():
     config = parse_config()
