@@ -45,15 +45,6 @@ def generate_password(length, include_uppercase=True, include_lowercase=True, in
     password = ''.join(password_characters)
     return password
 
-def parse_config():
-    # Get the path to the config.ini file based on the location of ptlock.py
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    config_path = os.path.join(current_dir, 'config.ini')
-
-    config = configparser.ConfigParser()
-    config.read(config_path)
-    return config
-
 def parse_arguments(config):
     parser = argparse.ArgumentParser(description='Generate a strong password.')
     parser.add_argument('-l', '--length', type=int, default=config.getint('length', 'default', fallback=12), help='The length of the password')
