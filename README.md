@@ -45,17 +45,15 @@ exclude_chars = {}
 You can run ptLock directly from the command line with various options:
 
 ```shell
-ptlock -l 16 -u -lc -d -s -e "abcdef0123"
+ptlock -l 16 -s ulds -e "abcdef0123"
 ```
 
 The options are:
 
 - `-l` or `--length`: The length of the password.
-- `-u` or `--uppercase`: Include uppercase letters in the password.
-- `-lc` or `--lowercase`: Include lowercase letters in the password.
-- `-d` or `--digits`: Include digits in the password.
-- `-s` or `--special`: Include special characters in the password.
+- `-s` or `--sets`: Sets of characters to include in the password: u (uppercase), l (lowercase), d (digits), s (special characters).
 - `-e` or `--exclude`: Exclude specific characters from the password.
+- `-c` or `--copy`: Copy the password to clipboard.
 
 ### 💡 Tips for a Strong Password
 

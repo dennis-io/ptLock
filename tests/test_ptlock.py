@@ -11,16 +11,16 @@ class TestPtLock(unittest.TestCase):
                 self.assertEqual(len(password), length)
 
     def test_character_inclusion(self):
-        for include_uppercase, include_lowercase, include_digits, include_special_chars in [(True, False, False, False), (False, True, False, False), (False, False, True, False), (False, False, False, True)]:
-            with self.subTest(include_uppercase=include_uppercase, include_lowercase=include_lowercase, include_digits=include_digits, include_special_chars=include_special_chars):
-                password = ptlock.generate_password(100, include_uppercase, include_lowercase, include_digits, include_special_chars)
-                if include_uppercase:
+        for sets in ['u', 'l', 'd', 's', 'ul', 'ud', 'us', 'ld', 'ls', 'ds', 'uld', 'uls', 'uds', 'lds', 'ulds']:
+            with self.subTest(sets=sets):
+                password = ptlock.generate_password(100, 'u' in sets, 'l' in sets, 'd' in sets, 's' in sets)
+                if 'u' in sets:
                     self.assertTrue(any(char.isupper() for char in password))
-                if include_lowercase:
+                if 'l' in sets:
                     self.assertTrue(any(char.islower() for char in password))
-                if include_digits:
+                if 'd' in sets:
                     self.assertTrue(any(char.isdigit() for char in password))
-                if include_special_chars:
+                if 's' in sets:
                     self.assertTrue(any(char in string.punctuation for char in password))
 
     def test_character_exclusion(self):
