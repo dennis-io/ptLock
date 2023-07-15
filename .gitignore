@@ -7,3 +7,6 @@ pytest.ini
 # Build artifacts
 build/
 *.egg-info/
+
+# tests
+tests/
