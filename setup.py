@@ -1,17 +1,14 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
-    name='ptLock',
-    version='1.0.0',
-    description='Password generator with CLI support',
-    author='neutron',
-    author_email='hello@neutronsec.com',
-    url='https://github.com/neutronsec/ptlock',
-    packages=['ptlock'],
-    install_requires=['pyperclip==1.8.2'],
+    name="ptLock",
+    version="0.1",
+    packages=find_packages(),  # Automatically find packages in current directory
     entry_points={
-        'console_scripts': [
-            'ptlock=ptlock.ptlock:main',
-        ],
+        'console_scripts': ['ptlock=ptLock.ptlock:main']
     },
+    install_requires=[
+        'click'
+    ],
+    python_requires='>=3.6',
 )
