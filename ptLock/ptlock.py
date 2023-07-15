@@ -49,11 +49,9 @@ def generate_password(length, include_uppercase=True, include_lowercase=True, in
 def parse_arguments(config):
     parser = argparse.ArgumentParser(description='Generate a strong password.')
     parser.add_argument('-l', '--length', type=int, default=config.getint('length', 'default', fallback=12), help='The length of the password')
-    parser.add_argument('-u', '--uppercase', action='store_true', default=config.getboolean('sets', 'include_uppercase'), help='Include uppercase letters in the password')
-    parser.add_argument('-lc', '--lowercase', action='store_true', default=config.getboolean('sets', 'include_lowercase'), help='Include lowercase letters in the password')
-    parser.add_argument('-d', '--digits', action='store_true', default=config.getboolean('sets', 'include_digits'), help='Include digits in the password')
-    parser.add_argument('-s', '--special', action='store_true', default=config.getboolean('sets', 'include_special_chars'), help='Include special characters in the password')
+    parser.add_argument('-s', '--sets', type=str, default='ulds', help='Sets of characters to include in the password: u (uppercase), l (lowercase), d (digits), s (special characters)')
     parser.add_argument('-e', '--exclude', type=str, default=config.get('exclusions', 'exclude_chars'), help='Exclude specific characters from the password')
+    parser.add_argument('-c', '--copy', action='store_true', help='Copy the password to clipboard')
     return parser.parse_args()
 
 def main():
@@ -65,12 +63,14 @@ def main():
         sys.exit(1)
 
     try:
-        password = generate_password(args.length, args.uppercase, args.lowercase, args.digits, args.special, args.exclude)
+        password = generate_password(args.length, 'u' in args.sets, 'l' in args.sets, 'd' in args.sets, 's' in args.sets, args.exclude)
         print("🎉 Generated Password:", password)
-        pyperclip.copy(password)
-        print("📋 Password copied to clipboard.")
+        if args.copy:
+            pyperclip.copy(password)
+            print("📋 Password copied to clipboard.")
     except ValueError as e:
         print("❗️", str(e))
 
 if __name__ == '__main__':
     main()
+
