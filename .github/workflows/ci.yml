@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.6.15', '3.9.9']
+        python-version: ['3.x', '3.9.x']
     steps:
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
