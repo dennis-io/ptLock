@@ -17,33 +17,34 @@ def parse_config():
     return config
 
 def generate_password(length, include_uppercase=True, include_lowercase=True, include_digits=True, include_special_chars=True, exclude_chars=''):
-    character_sets = []
-    if include_uppercase:
-        character_sets.append(set(string.ascii_uppercase) - set(exclude_chars))
-    if include_lowercase:
-        character_sets.append(set(string.ascii_lowercase) - set(exclude_chars))
-    if include_digits:
-        character_sets.append(set(string.digits) - set(exclude_chars))
-    if include_special_chars:
-        character_sets.append(set(string.punctuation) - set(exclude_chars))
+    # Initialize the list of possible characters
+    character_set = []
 
-    character_sets = [list(x) for x in character_sets if x]  # Remove empty lists
-    if not character_sets:
+    # Add the desired types of characters to the list
+    if include_uppercase:
+        character_set.extend(char for char in string.ascii_uppercase if char not in exclude_chars)
+    if include_lowercase:
+        character_set.extend(char for char in string.ascii_lowercase if char not in exclude_chars)
+    if include_digits:
+        character_set.extend(char for char in string.digits if char not in exclude_chars)
+    if include_special_chars:
+        character_set.extend(char for char in string.punctuation if char not in exclude_chars)
+
+    # Check if the character set is empty
+    if not character_set:
         raise ValueError("At least one character set must be included.")
 
-    password_characters = []
-    for character_set in character_sets:
-        password_characters.append(secrets.choice(character_set))
+    # Generate the password
+    password_characters = [secrets.choice(character_set) for _ in range(length)]
 
-    while len(password_characters) < length:
-        character_set = secrets.choice(character_sets)
-        password_characters.append(secrets.choice(character_set))
+    # Shuffle the characters
+    random.shuffle(password_characters)
 
-    random_generator = random.Random()
-    random_generator.seed(os.urandom(256))
-    random_generator.shuffle(password_characters)
+    # Join the characters together to form the password
     password = ''.join(password_characters)
+
     return password
+
 
 def parse_arguments(config):
     parser = argparse.ArgumentParser(description='Generate a strong password.')
