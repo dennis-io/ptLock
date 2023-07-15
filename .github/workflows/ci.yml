@@ -11,27 +11,20 @@ on:
       - develop
 
 jobs:
-  build:
-
-    runs-on: ${{ matrix.os }}
-
+  build_linux:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
-        python-version: ['3.6.15', '3.6.14', '3.6.13', '3.6.12', '3.6.11', '3.6.10', '3.6.9', '3.6.8', '3.6.7']
-
+        python-version: ['3.6.15', '3.9.9']
     steps:
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-
     - name: Install dependencies
       run: pip install .
-
     - name: Run tests
       run: pytest
-
     - name: Upload test coverage
       uses: actions/upload-artifact@v2
       with:
