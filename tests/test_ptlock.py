@@ -1,6 +1,6 @@
 import unittest
-import string   # Add this line
-from ptLock import ptlock  # adjust the import based on your package structure
+import string
+from ptLock import ptlock 
 
 class TestPtLock(unittest.TestCase):
 
@@ -32,6 +32,12 @@ class TestPtLock(unittest.TestCase):
     def test_all_character_sets_excluded(self):
         with self.assertRaises(ValueError):
             ptlock.generate_password(12, include_uppercase=False, include_lowercase=False, include_digits=False, include_special_chars=False)
+
+    def test_invalid_length(self):
+        with self.assertRaises(ValueError):
+            ptlock.generate_password(-1)  # Length of password can't be negative
+        with self.assertRaises(ValueError):
+            ptlock.generate_password(0)   # Length of password can't be zero
 
 if __name__ == '__main__':
     unittest.main()
